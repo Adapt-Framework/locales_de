@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adapt_framework>
+    <bundle>
+        <name>locales_de</name>
+        <label>Germany Locality</label>
+        <type>locale</type>
+        <version>1.0.0</version>
+        <namespace>\adapt\locales\de</namespace>
+        <version_status>release</version_status>
+        <availability>public</availability>
+        <description>Provides locality information for Germany, such as phone number, address and date formats.</description>
+        <copyright>2017 Adapt Framework</copyright>
+        <license>MIT</license>
+        <website>http://www.adaptframework.com/documentaion/extentions/locales_de</website>
+        <depends_on>
+            <bundle>
+                <name>locales</name>
+                <version>1.0</version>
+            </bundle>
+            <bundle>
+                <name>currency_eur</name>
+                <version>1.0</version>
+            </bundle>
+            <bundle>
+                <name>adapt</name>
+                <version>2.0</version>
+            </bundle>
+        </depends_on>
+        <works_with>
+            <bundle>
+                <name>locales</name>
+                <version>1.0</version>
+            </bundle>
+        </works_with>
+        <schema>
+            <add>
+                <table name="data_type">
+                    <record>
+                        <name>de_phone</name>
+                        <based_on_data_type>varchar</based_on_data_type>
+                        <validator>de_phone</validator>
+                        <formatter></formatter>
+                        <unformatter>phone</unformatter>
+                        <datetime_format></datetime_format>
+                        <max_length>24</max_length>
+                    </record>
+                    <record>
+                        <name>de_date</name>
+                        <based_on_data_type>date</based_on_data_type>
+                        <validator>date</validator>
+                        <formatter>date</formatter>
+                        <unformatter>date</unformatter>
+                        <datetime_format>Y-m-d</datetime_format>
+                        <max_length></max_length>
+                    </record>
+                    <record>
+                        <name>de_time</name>
+                        <based_on_data_type>time</based_on_data_type>
+                        <validator>time</validator>
+                        <formatter>time</formatter>
+                        <unformatter></unformatter>
+                        <datetime_format>H:i</datetime_format>
+                        <max_length></max_length>
+                    </record>
+                    <record>
+                        <name>de_datetime</name>
+                        <based_on_data_type>datetime</based_on_data_type>
+                        <validator>datetime</validator>
+                        <formatter></formatter>
+                        <unformatter>datetime</unformatter>
+                        <datetime_format>Y-m-d H:i</datetime_format>
+                        <max_length></max_length>
+                    </record>
+                    <record>
+                        <name>de_postcode</name>
+                        <based_on_data_type>varchar</based_on_data_type>
+                        <validator>de_postcode</validator>
+                        <datetime_format></datetime_format>
+                        <max_length>8</max_length>
+                    </record>
+                </table>
+                <table name="country">
+                    <record>
+                        <name>de</name>
+                        <label>Germany</label>
+                        <date_data_type_id get-from="data_type" where-name-is="de_date" />
+                        <time_data_type_id get-from="data_type" where-name-is="de_time" />
+                        <datetime_data_type_id get-from="data_type" where-name-is="de_datetime" />
+                        <currency_id get-form="currency" where-name-is="eur" />
+                    </record>
+                </table>
+                <table name="country_phone_data_type">
+                    <record>
+                        <country_id get-from="country" where-name-is="de" />
+                        <name>de_phone</name>
+                        <label>Phone</label>
+                        <data_type_id get-from="data_type" where-name-is="de_phone" />
+                    </record>
+                </table>
+                <table name="country_address_format">
+                    <record>
+                        <country_id get-from="country" where-name-is="de" />
+                        <priority>1</priority>
+                        <name>de_street_name</name>
+                        <label>Street name</label>
+                        <data_type_id get-from="data_type" where-name-is="varchar" />
+                        <max_length>64</max_length>
+                    </record>
+                    <record>
+                        <country_id get-from="country" where-name-is="de" />
+                        <priority>2</priority>
+                        <name>de_house_number</name>
+                        <label>House number</label>
+                        <data_type_id get-from="data_type" where-name-is="varchar" />
+                        <max_length>16</max_length>
+                    </record>
+                    <record>
+                        <country_id get-from="country" where-name-is="de" />
+                        <priority>3</priority>
+                        <name>de_postcode</name>
+                        <label>Postcode</label>
+                        <data_type_id get-from="data_type" where-name-is="varchar" />
+                        <max_length>8</max_length>
+                    </record>
+                    <record>
+                        <country_id get-from="country" where-name-is="de" />
+                        <priority>4</priority>
+                        <name>de_locality</name>
+                        <label>Locality</label>
+                        <data_type_id get-from="data_type" where-name-is="varchar" />
+                        <max_length>16</max_length>
+                    </record>
+                </table>
+            </add>
+        </schema>
+        <settings>
+            <category name="Default locales">
+                <setting>
+                    <name>locales.default_date_format</name>
+                    <label>Default date format</label>
+                    <default_value>de_date</default_value>
+                </setting>
+                <setting>
+                    <name>locales.default_time_format</name>
+                    <label>Default time format</label>
+                    <default_value>de_time</default_value>
+                </setting>
+                <setting>
+                    <name>locales.default_datetime_format</name>
+                    <label>Default date/time format</label>
+                    <default_value>de_datetime</default_value>
+                </setting>
+            </category>
+        </settings>
+    </bundle>
+</adapt_framework>
